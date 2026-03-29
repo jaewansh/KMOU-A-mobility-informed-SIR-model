@@ -81,5 +81,5 @@ daegu_df = pd.read_csv(PROCESSED_DIR / "Daegu_cases.csv")
 gwangju_df = pd.read_csv(PROCESSED_DIR / "Gwangju_cases.csv")
 
 
-if **name** == "**main**":
+if __name__ == "__main__":
 main()
