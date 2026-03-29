@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from scipy.stats import nbinom
 import numpy as np
 import matplotlib.pyplot as pt
@@ -11,6 +12,8 @@ GAMMA_DIR = Path("results/mobility/2016_2017/0.01")
 BETA_OUT_DIR = Path("results/model/2016_2017/0.01/beta")
 RT_OUT_DIR = Path("results/model/2016_2017/0.01/rt")
 FIG_OUT_DIR = Path("results/figures/model/2016_2017/0.01")
+
+N_PARTICLES = int(os.getenv("N_PARTICLES", "1000000"))
 
 
 def moving_average(x, w):
@@ -58,6 +61,7 @@ def run_region(
     case_filename,
     gamma_filename,
     beta_csv_filename,
+    rt_csv_filename,
     beta_png_filename,
     n_tot,
     color,
@@ -67,15 +71,22 @@ def run_region(
     window = 7
     Ntot = n_tot
     dt = 1.0
-    cases = 1_000_000
+    cases = N_PARTICLES
     sigma = 1.0 / 4.1
     beta_s = 0.15
 
-    # xi
-    df_gamma = pd.read_csv(GAMMA_DIR / gamma_filename)
-    xi = df_gamma["gamma"]
+    BETA_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    RT_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    FIG_OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    if not use_gamma:
+    # xi
+    if use_gamma:
+        gamma_path = GAMMA_DIR / gamma_filename
+        df_gamma = pd.read_csv(gamma_path)
+        if "gamma" not in df_gamma.columns:
+            raise ValueError(f"{gamma_path} must contain a 'gamma' column.")
+        xi = df_gamma["gamma"]
+    else:
         xi = 1
 
     np.random.seed()
@@ -99,6 +110,14 @@ def run_region(
 
     # Particle filter Rt
     day = len(region_cases)
+
+    if day == 0:
+        raise ValueError(f"{region_name}: no valid case observations were found in {case_filename}.")
+    if not np.isscalar(xi) and len(xi) < day:
+        raise ValueError(
+            f"{region_name}: gamma series in {gamma_filename} has length {len(xi)}, "
+            f"but at least {day} rows are required."
+        )
 
     dates = pd.to_datetime(data["date"])
     plot_date = dates[0:]
@@ -225,6 +244,7 @@ def run_region(
 
 def main():
     BETA_OUT_DIR.mkdir(parents=True, exist_ok=True)
+    RT_OUT_DIR.mkdir(parents=True, exist_ok=True)
     FIG_OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # 대한민국
@@ -233,6 +253,7 @@ def main():
         case_filename="Korea_cases.csv",
         gamma_filename="Seoul_gamma.csv",
         beta_csv_filename="Korea_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Korea_rt_0.01(2016~2017).csv",
         beta_png_filename="Korea_beta.png",
         n_tot=51_737_380,
         color="#000000",
@@ -245,6 +266,7 @@ def main():
         case_filename="Seoul_cases.csv",
         gamma_filename="Seoul_gamma.csv",
         beta_csv_filename="Seoul_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Seoul_rt_0.01(2016~2017).csv",
         beta_png_filename="Seoul_beta.png",
         n_tot=22_689_358.5,
         color="#D62728",
@@ -257,6 +279,7 @@ def main():
         case_filename="Busan_cases.csv",
         gamma_filename="Busan_gamma.csv",
         beta_csv_filename="Busan_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Busan_rt_0.01(2016~2017).csv",
         beta_png_filename="Busan_beta.png",
         n_tot=3_484_591,
         color="#1F77B4",
@@ -269,6 +292,7 @@ def main():
         case_filename="Daejeon_cases.csv",
         gamma_filename="Daejeon_gamma.csv",
         beta_csv_filename="Daejeon_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Daejeon_rt_0.01(2016~2017).csv",
         beta_png_filename="Daejeon_beta.png",
         n_tot=1_508_298.5,
         color="#2CA02C",
@@ -281,6 +305,7 @@ def main():
         case_filename="Daegu_cases.csv",
         gamma_filename="Daegu_gamma.csv",
         beta_csv_filename="Daegu_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Daegu_rt_0.01(2016~2017).csv",
         beta_png_filename="Daegu_beta.png",
         n_tot=2_479_894,
         color="#FF7F0E",
@@ -293,6 +318,7 @@ def main():
         case_filename="Gwangju_cases.csv",
         gamma_filename="Gwangju_gamma.csv",
         beta_csv_filename="Gwangju_beta_0.01(2016~2017).csv",
+        rt_csv_filename="Gwangju_rt_0.01(2016~2017).csv",
         beta_png_filename="Gwangju_beta.png",
         n_tot=1_466_492,
         color="#9467BD",
@@ -303,6 +329,8 @@ def main():
 
     # Regional Confirmation
     pt.figure(figsize=(10, 5))
+    pt.plot(plot_date, korea["cases"], linestyle="-", linewidth=1.5, color="#000000", label="Korea_cases")
+    pt.plot(plot_date, korea["confirm"], linestyle="--", linewidth=1.5, color="#000000", label="Korea_Confirm")
     pt.plot(plot_date, seoul["cases"], linestyle="-", linewidth=1.5, color="#D62728", label="Seoul_cases")
     pt.plot(plot_date, seoul["confirm"], linestyle="--", linewidth=1.5, color="#D62728", label="Seoul_Confirm")
     pt.plot(plot_date, busan["cases"], linestyle="-", linewidth=1.5, color="#1F77B4", label="Busan_cases")
@@ -325,7 +353,6 @@ def main():
     plot_dates = korea["dates"][10:]
 
     pt.figure()
-    pt.plot(plot_dates, korea["beta"][10:], linestyle="--", linewidth=1.5, color=colors[0], label="Korea")
     pt.plot(plot_dates, seoul["beta"][10:], "-", linewidth=1, color=colors[1], label="Seoul")
     pt.plot(plot_dates, busan["beta"][10:], "-", linewidth=1, color=colors[2], label="Busan")
     pt.plot(plot_dates, daejeon["beta"][10:], "-", linewidth=1, color=colors[3], label="Daejeon")
