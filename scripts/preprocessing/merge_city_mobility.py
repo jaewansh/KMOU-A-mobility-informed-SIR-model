@@ -29,5 +29,5 @@ df.to_csv(output_path, index=False)
 print("Saved:", output_path)
 print(df.head())
 
-if **name** == "**main**":
+if __name__ == "__main__":
 main()
