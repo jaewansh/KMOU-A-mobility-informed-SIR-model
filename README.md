@@ -6,7 +6,7 @@ This repository provides reproducible code for a mobility-informed SIR model tha
 
 ## Study Description
 
-This study integrates mobility data derived from subway boarding records into an SIR framework to capture spatial heterogeneity in influenza transmission. The model aims to improve estimation of transmission dynamics by accounting for region-specific mobility patterns.
+This study integrates mobility data derived from subway boarding records into an SIR model to capture spatial heterogeneity in influenza transmission. The model aims to improve estimation of transmission dynamics by accounting for region-specific mobility patterns.
 
 ## Repository Structure
 
