@@ -190,4 +190,4 @@ If you use this repository, please cite the associated manuscript and this code 
 
 ## License
 
-MIT License
+GNU General Public License v3.0
