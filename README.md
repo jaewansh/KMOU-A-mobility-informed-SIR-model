@@ -2,41 +2,93 @@
 
 ## Overview
 
-This repository provides reproducible code for a mobility-informed SIR model that incorporates subway-based mobility to analyze regional influenza transmission dynamics.
+This repository provides reproducible code for a mobility-informed SIR model that incorporates subway-based mobility to analyze regional influenza transmission dynamics in Korea.
 
 ## Study Description
 
-This study integrates mobility data derived from subway boarding records into an SIR model to capture spatial heterogeneity in influenza transmission. The model aims to improve estimation of transmission dynamics by accounting for region-specific mobility patterns.
+This study integrates mobility data derived from subway boarding records into an SIR framework to capture spatial heterogeneity in influenza transmission. The model estimates transmission dynamics while accounting for region-specific mobility patterns across major metropolitan areas.
 
 ## Repository Structure
 
-* `data/` : Processed mobility and epidemiological data
-* `src/` : Core model implementation (SIR + mobility)
-* `scripts/` : Data preprocessing, model fitting, and simulation scripts
-* `results/` : Generated figures and tables for the manuscript
+```
+data/
+├── raw/              # Raw data (not publicly available)
+├── processed/        # Preprocessed data
+└── sample/           # Example/sample data (if provided)
 
-## Reproducibility
+scripts/
+├── preprocessing/    # Data preprocessing scripts
+├── analysis/         # Mobility computation
+└── model/            # SIR model execution
 
-To reproduce the results:
+results/
+├── mobility/         # Computed mobility outputs
+├── model/            # Model outputs (beta, Rt)
+└── figures/          # Figures for manuscript
+```
 
-1. Prepare the data in the `data/` directory
-2. Run preprocessing scripts
-3. Execute model fitting
-4. Generate figures and tables
+## Reproducibility (Execution Order)
+
+To reproduce the results, run the scripts in the following order:
+
+1. **City-level preprocessing**
+
+```
+scripts/preprocessing/seoul_preprocessing.py
+scripts/preprocessing/busan_preprocessing.py
+scripts/preprocessing/daegu_preprocessing.py
+scripts/preprocessing/gwangju_preprocessing.py
+scripts/preprocessing/daejeon_api_2016.py
+scripts/preprocessing/daejeon_preprocessing.py
+```
+
+2. **Merge city mobility data**
+
+```
+scripts/preprocessing/merge_city_mobility.py
+```
+
+3. **Compute mobility variables**
+
+```
+scripts/analysis/mobility_computation.py
+```
+
+4. **Preprocess NHIS case data**
+
+```
+scripts/preprocessing/case_preprocessing.py
+```
+
+5. **Run SIR model**
+
+```
+scripts/model/regional_rt_theta_001.py
+```
 
 ## Data Availability
 
-Due to data usage restrictions (e.g., NHIS data), raw data may not be publicly available. Processed or synthetic data may be provided where possible.
+Raw NHIS data are not publicly available due to data privacy restrictions.
+
+Users with authorized access should place raw data in:
+
+```
+data/raw/nhis/
+```
+
+and run the preprocessing scripts.
 
 ## Code Availability
 
-All code used for analysis and figure generation is available in this repository.
+The code used in this study is publicly available at:
+
+https://github.com/jaewansh/KMOU-A-mobility-informed-SIR-model
 
 ## Citation
 
-If you use this code, please cite the associated paper:
+If you use this code, please cite:
 
-> (Your paper citation will be added here after publication)
+(Your paper citation will be added after publication)
 
 ## License
 
