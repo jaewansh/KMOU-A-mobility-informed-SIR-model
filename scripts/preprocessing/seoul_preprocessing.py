@@ -72,5 +72,5 @@ daily.to_csv(OUTPUT_PATH, index=False, encoding='utf-8')
 print("Saved:", OUTPUT_PATH)
 print(daily.head())
 
-if **name** == "**main**":
+if __name__ == "__main__":
 main()
