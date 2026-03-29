@@ -8,7 +8,7 @@ OUTPUT_DIR = Path("results/mobility/2016_2017")
 def save_gamma_by_city(target_daily, theta, output_dir):
 target_daily["gamma"] = ((target_daily["L_i"] / target_daily["L_ref"]) ** theta) * target_daily["b"]
 
-```
+
 seoul_data = target_daily[target_daily["city"] == "seoul"]
 busan_data = target_daily[target_daily["city"] == "busan"]
 daegu_data = target_daily[target_daily["city"] == "daegu"]
@@ -23,12 +23,12 @@ busan_data.to_csv(theta_dir / "Busan_gamma.csv", index=False)
 daegu_data.to_csv(theta_dir / "Daegu_gamma.csv", index=False)
 daejeon_data.to_csv(theta_dir / "Daejeon_gamma.csv", index=False)
 gwangju_data.to_csv(theta_dir / "Gwangju_gamma.csv", index=False)
-```
+
 
 def main():
 df = pd.read_csv(DATA_DIR / "all_city_metro.csv")
 
-```
+
 df["date"] = pd.to_datetime(df["date"])
 df.sort_values(["date"], inplace=True)
 
@@ -82,13 +82,10 @@ target_daily["L_ref"] = L_ref
 
 save_gamma_by_city(target_daily.copy(), 1, OUTPUT_DIR)
 save_gamma_by_city(target_daily.copy(), 0.5, OUTPUT_DIR)
-save_gamma_by_city(target_daily.copy(), 0.4, OUTPUT_DIR)
-save_gamma_by_city(target_daily.copy(), 0.2, OUTPUT_DIR)
-save_gamma_by_city(target_daily.copy(), 0.1, OUTPUT_DIR)
 save_gamma_by_city(target_daily.copy(), 0.01, OUTPUT_DIR)
 
 print("Saved gamma files to:", OUTPUT_DIR)
-```
+
 
 if **name** == "**main**":
 main()
