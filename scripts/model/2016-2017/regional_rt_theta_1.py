@@ -36,13 +36,13 @@ def RK4(S, I, R, beta, xi, Ntot, sigma, dt):
     kI1 = (xi * beta * S * I / Ntot) - sigma * I
     kR1 = sigma * I
 
-    kS2 = -xi * beta * (S + 1 * kS1 * dt) * (I + 1 * kI1 * dt) / Ntot
-    kI2 = (xi * beta * (S + 1 * kS1 * dt) * (I + 1 * kI1 * dt) / Ntot) - sigma * (I + 1 * kI1 * dt)
-    kR2 = sigma * (I + 1 * kI1 * dt)
+    kS2 = -xi * beta * (S + 0.5 * kS1 * dt) * (I + 0.5 * kI1 * dt) / Ntot
+    kI2 = (xi * beta * (S + 0.5 * kS1 * dt) * (I + 0.5 * kI1 * dt) / Ntot) - sigma * (I + 0.5 * kI1 * dt)
+    kR2 = sigma * (I + 0.5 * kI1 * dt)
 
-    kS3 = -xi * beta * (S + 1 * kS2 * dt) * (I + 1 * kI2 * dt) / Ntot
-    kI3 = (xi * beta * (S + 1 * kS2 * dt) * (I + 1 * kI2 * dt) / Ntot) - sigma * (I + 1 * kI2 * dt)
-    kR3 = sigma * (I + 1 * kI2 * dt)
+    kS3 = -xi * beta * (S + 0.5 * kS2 * dt) * (I + 0.5 * kI2 * dt) / Ntot
+    kI3 = (xi * beta * (S + 0.5 * kS2 * dt) * (I + 0.5 * kI2 * dt) / Ntot) - sigma * (I + 0.5 * kI2 * dt)
+    kR3 = sigma * (I + 0.5 * kI2 * dt)
 
     kS4 = -xi * beta * (S + kS3 * dt) * (I + kI3 * dt) / Ntot
     kI4 = (xi * beta * (S + kS3 * dt) * (I + kI3 * dt) / Ntot) - sigma * (I + kI3 * dt)
