@@ -9,6 +9,7 @@ import pandas as pd
 CASE_DIR = Path("data/processed/cases")
 GAMMA_DIR = Path("results/mobility/2016_2017/0.5")
 BETA_OUT_DIR = Path("results/model/2016_2017/0.5/beta")
+RT_OUT_DIR = Path("results/model/2016_2017/0.5/rt")
 FIG_OUT_DIR = Path("results/figures/model/2016_2017/0.5")
 
 
@@ -178,6 +179,9 @@ def run_region(
 
     beta_t = pd.DataFrame({"date": dates[0:], "beta": beta[0:]})
     beta_t.to_csv(BETA_OUT_DIR / beta_csv_filename, index=False)
+
+    Rt_t = pd.DataFrame({"date": dates[0:], "rt": Rt[0:]})
+    Rt_t.to_csv(RT_OUT_DIR / rt_csv_filename, index=False)
 
     # Rt Plot
     pt.figure()
