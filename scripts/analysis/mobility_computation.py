@@ -87,5 +87,5 @@ save_gamma_by_city(target_daily.copy(), 0.01, OUTPUT_DIR)
 print("Saved gamma files to:", OUTPUT_DIR)
 
 
-if **name** == "**main**":
+if __name__ == "__main__":
 main()
