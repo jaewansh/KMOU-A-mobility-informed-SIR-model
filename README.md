@@ -17,7 +17,7 @@ data/
 │   ├── daejeon/
 │   ├── daegu/
 │   ├── gwangju/
-│   └── nhis/                # NHIS raw data (not included)
+│   └── nhis/                # NHIS raw data
 ├── processed/
 │   ├── metro/              # preprocessed metro data
 │   └── cases/              # preprocessed case data
