@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "KMOU-A-mobility-informed-SIR-model"
+message: "If you use this code, please cite this repository."
+type: software
+
+authors:
+
+- family-names: Shin
+  given-names: Jaewan
+
+repository-code: "https://github.com/jaewansh/KMOU-A-mobility-informed-SIR-model"
+
+license: GPL-3.0
+
+version: 1.0.0
+date-released: 2026-03-29
+
