@@ -394,5 +394,5 @@ merge_all()
 print("Saved:", OUTPUT_DIR / "daegu_metro.csv")
 
 
-if **name** == "**main**":
+if __name__ == "__main__":
 main()
