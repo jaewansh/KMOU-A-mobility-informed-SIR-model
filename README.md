@@ -203,20 +203,33 @@ This script writes the 2016 Daejeon mobility file that is then merged with the l
 
 ## Installation
 
-Install the required packages:
+A recommended setup is:
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-The current `requirements.txt` includes:
+This repository uses the following Python packages:
 
 - numpy
 - pandas
-- matplotlib
 - scipy
+- matplotlib
 - requests
 - openpyxl
+
+To make repeated runs easier, you may optionally keep environment variables in a small shell file such as `env.example.sh` and load it before running the pipeline:
+
+```bash
+source env.example.sh
+```
+
+Variables used in this repository:
+
+- `DAEJEON_API_KEY`: required only for `scripts/preprocessing/daejeon_api_2016.py`
+- `N_PARTICLES`: optional override for the model particle count during quick tests
 
 ## Reproducibility pipeline
 
