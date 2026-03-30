@@ -65,15 +65,15 @@ The regional mobility factor is constructed from daily subway **boarding counts*
 5. Construct the final mobility factor
 
 \[
-\xi_i(t) = \left(\frac{L_i}{L_{ref}}\right)^{\theta} b_i(t)
+ξi(t) = (Li/Lref)^θ * bi(t)
 \]
 
 where:
 
-- \(L_i\) is the regional structural mobility level,
-- \(L_{ref}\) is the reference mobility level across metropolitan regions,
-- \(b_i(t)\) is the smoothed within-region temporal mobility variation,
-- \(\theta\) is the mobility elasticity parameter.
+- Li is the regional structural mobility level,
+- Lref is the reference mobility level across metropolitan regions,
+- bi(t) is the smoothed within-region temporal mobility variation,
+- θ is the mobility elasticity parameter.
 
 This repository includes model scripts for three elasticity settings:
 
