@@ -26,7 +26,6 @@ def save_case_series(filtered_df, city_codes, output_name, title):
 
 def main():
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
 
     df = pd.read_excel(INPUT_PATH)
