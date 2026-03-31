@@ -83,30 +83,25 @@ This repository includes model scripts for three elasticity settings:
 
 ## Repository structure
 
+The lists below distinguish between:
+
+1. what is **currently tracked on `main`**, and
+2. what is **generated locally** after running the pipeline.
+
+### Currently committed on `main`
+
 ```text
 KMOU-A-mobility-informed-SIR-model/
 ├─ data/
-│  ├─ raw/
-│  │  ├─ seoul/
+│  ├─ raw/                           # input folders kept as placeholders (.gitkeep)
 │  │  ├─ busan/
 │  │  ├─ daegu/
 │  │  ├─ daejeon/
 │  │  ├─ gwangju/
-│  │  └─ nhis/
+│  │  ├─ nhis/
+│  │  └─ seoul/
 │  └─ processed/
-│     ├─ seoul_metro_daily.csv
-│     ├─ busan_metro.csv
-│     ├─ daegu_metro.csv
-│     ├─ daejeon_metro.csv
-│     ├─ gwangju_metro.csv
-│     ├─ all_city_metro.csv
-│     └─ cases/
-│        ├─ Korea_cases.csv
-│        ├─ Seoul_cases.csv
-│        ├─ Busan_cases.csv
-│        ├─ Daegu_cases.csv
-│        ├─ Daejeon_cases.csv
-│        └─ Gwangju_cases.csv
+│     └─ cases/                      # placeholder output folder
 ├─ scripts/
 │  ├─ preprocessing/
 │  │  ├─ seoul_preprocessing.py
@@ -124,30 +119,77 @@ KMOU-A-mobility-informed-SIR-model/
 │        ├─ regional_rt_theta_001.py
 │        ├─ regional_rt_theta_05.py
 │        └─ regional_rt_theta_1.py
+├─ src/
+│  └─ preprocessing/
+│     ├─ common.py
+│     ├─ date_utils.py
+│     ├─ io_utils.py
+│     └─ region_utils.py
 ├─ results/
 │  ├─ mobility/
 │  │  └─ 2016_2017/
-│  │     ├─ 0.01/
-│  │     ├─ 0.5/
-│  │     └─ 1/
+│  │     ├─ 0.01/                    # placeholder output folder
+│  │     ├─ 0.5/                     # placeholder output folder
+│  │     └─ 1/                       # placeholder output folder
 │  ├─ model/
 │  │  └─ 2016_2017/
 │  │     ├─ 0.01/
+│  │     │  ├─ beta/                 # placeholder output folder
+│  │     │  └─ rt/                   # placeholder output folder
 │  │     ├─ 0.5/
+│  │     │  ├─ beta/
+│  │     │  └─ rt/
 │  │     └─ 1/
+│  │        ├─ beta/
+│  │        └─ rt/
 │  └─ figures/
 │     └─ model/
 │        └─ 2016_2017/
-│           ├─ 0.01/
-│           ├─ 0.5/
-│           └─ 1/
-├─ src/
-├─ requirements.txt
+│           ├─ 0.01/                 # placeholder output folder
+│           ├─ 0.5/                  # placeholder output folder
+│           └─ 1/                    # placeholder output folder
+├─ .CITATION.cff
+├─ .gitignore
 ├─ LICENSE
+├─ requirements.txt
 └─ README.md
 ```
 
+### Generated locally after running the pipeline
+
+```text
+data/processed/
+├─ seoul_metro_daily.csv
+├─ busan_metro.csv
+├─ daegu_metro.csv
+├─ daejeon_metro.csv
+├─ gwangju_metro.csv
+├─ all_city_metro.csv
+└─ cases/
+   ├─ Korea_cases.csv
+   ├─ Seoul_cases.csv
+   ├─ Busan_cases.csv
+   ├─ Daegu_cases.csv
+   ├─ Daejeon_cases.csv
+   └─ Gwangju_cases.csv
+
+results/mobility/2016_2017/{0.01,0.5,1}/
+├─ Seoul_gamma.csv
+├─ Busan_gamma.csv
+├─ Daegu_gamma.csv
+├─ Daejeon_gamma.csv
+└─ Gwangju_gamma.csv
+
+results/model/2016_2017/{theta}/beta/
+results/model/2016_2017/{theta}/rt/
+results/figures/model/2016_2017/{theta}/
+```
+
+These generated files are expected **local outputs** and are **not committed to the repository by default**.
+
 ## Data requirements
+
+The raw input data files are **not distributed with this repository**. The folders under `data/raw/` are committed as placeholders so that you can place your local copies there before running the pipeline.
 
 ### 1. NHIS influenza data
 
@@ -233,7 +275,7 @@ Variables used in this repository:
 
 ## Reproducibility pipeline
 
-Run the scripts in the following order.
+Run the scripts in the following order. The commands below populate the placeholder output directories shown above.
 
 ### Step 1. Preprocess city-level metro data
 
@@ -244,6 +286,16 @@ python scripts/preprocessing/daegu_preprocessing.py
 python scripts/preprocessing/daejeon_api_2016.py
 python scripts/preprocessing/daejeon_preprocessing.py
 python scripts/preprocessing/gwangju_preprocessing.py
+```
+
+This creates city-level processed mobility files under `data/processed/`, including:
+
+```text
+data/processed/seoul_metro_daily.csv
+data/processed/busan_metro.csv
+data/processed/daegu_metro.csv
+data/processed/daejeon_metro.csv
+data/processed/gwangju_metro.csv
 ```
 
 ### Step 2. Merge all city-level metro data
@@ -302,7 +354,9 @@ export N_PARTICLES=200000
 
 If `N_PARTICLES` is not set, the scripts use their default value.
 
-## Output summary
+## Expected output summary after a successful run
+
+The files below are created locally during execution. They are **not present on `main` by default**.
 
 ### Mobility outputs
 
@@ -343,7 +397,7 @@ These outputs include:
 
 If you use this repository, please cite both:
 
-1. the associated manuscript, and  
+1. the associated manuscript, and
 2. this GitHub repository.
 
 Suggested manuscript citation:
