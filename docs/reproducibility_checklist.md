@@ -1,54 +1,44 @@
 # Reproducibility checklist
 
-This checklist links repository outputs to the manuscript and supplementary material.
+This checklist links repository files to the manuscript and supplementary material.
 
 ## Main manuscript
 
-| Output | Description | Repository requirement |
+| Output | Manuscript location | Repository component |
 |---|---|---|
-| Figure 1 | Conceptual mobility-informed SIR model diagram | Conceptual figure or manuscript figure |
-| Figure 2 | Mobility-factor construction pipeline | Mobility construction documentation and script |
-| Figure 3 | Particle filtering and particle smoothing validation | Synthetic validation workflow |
-| Figure 4 | Seoul subway-based mobility factor \(\xi(t)\) | Mobility output and plotting workflow |
-| Figure 5 | Observed and simulated incidence, 2016-2017 season | 2016-2017 model output |
-| Figure 6 | Estimated \(R(t)\) and \(\beta(t)\), 2016-2017 season | 2016-2017 model output |
-| Figure 7 | Seoul heatmaps under mobility-reduction scenarios | Heatmap workflow and scenario outputs |
-| Table 2 | Seoul scenario summary metrics | Scenario summary table |
+| Figure 1 | Mobility-informed SIR conceptual diagram | Manuscript figure |
+| Figure 2 | Mobility-factor construction pipeline | `01_mobility_factor_2016_2017.ipynb` and `docs/model_and_notation.md` |
+| Figure 3 | Particle filtering and particle smoothing comparison | `02_sir_negative_binomial_particle_smoothing.ipynb` |
+| Figure 4 | Seoul subway-based mobility factor \(\xi(t)\) | `01_mobility_factor_2016_2017.ipynb` |
+| Figure 5 | 2016-2017 observed and simulated incidence | `03_rt_estimation_2016_2017.ipynb` |
+| Figure 6 | 2016-2017 \(R(t)\) and \(\beta(t)\) | `03_rt_estimation_2016_2017.ipynb` |
+| Figure 7 | Seoul heatmaps under mobility-reduction scenarios | `04_rt_heatmap_scenarios.ipynb` |
+| Table 2 | Seoul scenario summary metrics | `05_scenario_summary_tables.ipynb` and `results/tables/scenario_summary_reference.csv` |
 
 ## Supplementary material
 
-| Output | Description | Repository requirement |
+| Output | Supplementary location | Repository component |
 |---|---|---|
-| Figure S1 | Time-resolved RMSE comparison between particle filtering and particle smoothing | Synthetic validation workflow |
-| Figure S2 | Gwangju 2016-2017 model fitting result | 2016-2017 model output |
-| Figure S3 | 2017-2018 model fitting and transmission dynamics | 2017-2018 model output |
-| Figure S4 | 2018-2019 model fitting and transmission dynamics | 2018-2019 model output |
-| Figure S5 | 2022-2023 model fitting and transmission dynamics | 2022-2023 model output |
-| Figure S6 | Busan heatmap under mobility-reduction scenarios | Scenario heatmap output |
-| Figure S7 | Daegu heatmap under mobility-reduction scenarios | Scenario heatmap output |
-| Figure S8 | Daejeon heatmap under mobility-reduction scenarios | Scenario heatmap output |
-| Figure S9 | Gwangju heatmap under mobility-reduction scenarios | Scenario heatmap output |
-| Tables S1-S4 | Scenario summary metrics for Busan, Daegu, Daejeon, and Gwangju | Scenario summary table |
+| Figure S1 | Time-resolved RMSE comparison | `02_sir_negative_binomial_particle_smoothing.ipynb` |
+| Figure S2 | Gwangju 2016-2017 fitting result | `03_rt_estimation_2016_2017.ipynb` |
+| Figure S3 | 2017-2018 fitting and transmission dynamics | requires 2017-2018 Rt outputs |
+| Figure S4 | 2018-2019 fitting and transmission dynamics | requires 2018-2019 Rt outputs |
+| Figure S5 | 2022-2023 fitting and transmission dynamics | requires 2022-2023 Rt outputs |
+| Figure S6 | Busan heatmap | `04_rt_heatmap_scenarios.ipynb` |
+| Figure S7 | Daegu heatmap | `04_rt_heatmap_scenarios.ipynb` |
+| Figure S8 | Daejeon heatmap | `04_rt_heatmap_scenarios.ipynb` |
+| Figure S9 | Gwangju heatmap | `04_rt_heatmap_scenarios.ipynb` |
+| Tables S1-S4 | Scenario summary tables for Busan, Daegu, Daejeon, and Gwangju | `05_scenario_summary_tables.ipynb` and `results/tables/scenario_summary_reference.csv` |
 
-## Complete reproduction target
+## Required release checks
 
-A complete release should include processed inputs or generated outputs for:
+Before final release, confirm that:
 
-```text
-Cities:
-Seoul, Busan, Daegu, Daejeon, Gwangju
-
-Seasons:
-2016_2017, 2017_2018, 2018_2019, 2022_2023
-```
-
-## Release checks
-
-Before creating a public release, confirm that:
-
-- `README.md` contains the final manuscript title and author list.
+- The five uploaded notebooks are stored under `notebooks/` with the file names listed in `notebooks/README.md`.
 - `CITATION.cff` exists at the repository root.
-- Legacy mobility output names using `gamma` are either renamed to `xi` or clearly documented.
-- Raw data redistribution rules have been checked.
-- Processed data or reconstruction instructions are available.
-- The repository can be cloned and the documented commands can be run without local absolute paths.
+- `paper/Manuscript.pdf` and `paper/MBE_suppliments.pdf` are included if redistribution is allowed.
+- The repository documentation states that code column `gamma` corresponds to manuscript \(\xi(t)\).
+- No `theta` parameter is documented as part of the manuscript workflow.
+- `scripts/patch_notebook_paths.py` has been run after moving the uploaded notebooks.
+- `scripts/check_repository.py` passes before release.
+- The \(R(t)\) CSV files for 2017-2018, 2018-2019, and 2022-2023 are included if full supplementary reproduction is required.
