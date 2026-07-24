@@ -491,20 +491,6 @@ results/mobility/2016_2017/
 
 ---
 
-## Citation
-
-If you use this repository, please cite the associated manuscript and this software repository.
-
-Suggested manuscript citation:
-
-> Shin J, Kim M. A Mobility-Informed SIR Model for Evaluating the Effects of Mobility Reduction on Epidemic Transmission and the Instantaneous Reproduction Number. Mathematical Biosciences and Engineering. 2024.
-
-Suggested software citation:
-
-> Shin J, Kim M. KMOU-A-mobility-informed-SIR-model: Research code for a mobility-informed SIR model using subway ridership data and mobility-reduction scenarios. GitHub repository. https://github.com/jaewansh/KMOU-A-mobility-informed-SIR-model
-
----
-
 ## License
 
 This repository is distributed under the GPL-3.0 license. See `LICENSE` for details.
