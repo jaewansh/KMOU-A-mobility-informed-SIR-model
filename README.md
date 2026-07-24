@@ -463,19 +463,6 @@ This file includes the Seoul Table 2 values and Supplementary Tables S1-S4 for B
 
 ---
 
-## Citation
-
-If you use this repository, please cite the manuscript and this repository.
-
-Suggested manuscript citation:
-
-> Shin J, Kim M. A Mobility-Informed SIR Model for Evaluating the Effects of Mobility Reduction on Epidemic Transmission and the instantaneous Reproduction Number. Mathematical Biosciences and Engineering. 2024.
-
-Suggested software citation:
-
-> Shin J, Kim M. KMOU-A-mobility-informed-SIR-model: Research code for a mobility-informed SIR model using subway ridership data, particle smoothing, and mobility-reduction scenarios. GitHub repository. https://github.com/jaewansh/KMOU-A-mobility-informed-SIR-model
-
----
 
 ## License
 
