@@ -10,6 +10,7 @@ __pycache__/
 .venv/
 venv/
 env/
+ENV/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -18,7 +19,7 @@ env/
 .DS_Store
 Thumbs.db
 
-# Local environment files
+# Local environment variables
 .env
 .env.*
 !env.example.sh
@@ -28,8 +29,7 @@ logs/
 tmp/
 temp/
 
-# Raw data files
-# Raw data may have redistribution restrictions and should not be committed by default.
+# Raw files that should remain local if redistribution is restricted
 data/raw/**
 !data/raw/
 !data/raw/**/
@@ -42,19 +42,16 @@ data/raw/**
 *.7z
 *.rar
 
-# Local spreadsheet inputs
-# Processed CSV outputs may be committed separately for reproducibility.
-*.xls
-*.xlsx
-
 # Local binary outputs
 *.pkl
 *.pickle
 *.npy
 *.npz
 
-# Keep processed reproducibility outputs trackable
-!data/processed/
-!data/processed/**
-!results/
-!results/**
+# Keep reproducibility CSV, notebooks, figures, PDFs, and documentation trackable
+!*.csv
+!*.ipynb
+!*.eps
+!*.png
+!*.pdf
+!*.md
