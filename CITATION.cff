@@ -7,14 +7,13 @@ authors:
   - family-names: "Kim"
     given-names: "Minsoo"
 repository-code: "https://github.com/jaewansh/KMOU-A-mobility-informed-SIR-model"
-license: "GPL-3.0-only"
-abstract: "Research code for a mobility-informed SIR model using subway ridership data, particle smoothing, and mobility-reduction scenarios to evaluate influenza transmission and the instantaneous reproduction number."
-preferred-citation:
-  type: article
-  title: "A Mobility-Informed SIR Model for Evaluating the Effects of Mobility Reduction on Epidemic Transmission and the Instantaneous Reproduction Number"
-  authors:
-    - family-names: "Shin"
-      given-names: "Jaewan"
-    - family-names: "Kim"
-      given-names: "Minsoo"
-  year: 2026
+abstract: "Research code and reproducibility materials for a mobility-informed SIR model using subway ridership data, particle smoothing, a negative binomial observation framework, and mobility-reduction scenarios to evaluate influenza transmission and the instantaneous reproduction number."
+keywords:
+  - human mobility
+  - influenza
+  - instantaneous reproduction number
+  - mobility-informed SIR
+  - particle smoothing
+  - negative binomial observation model
+  - subway ridership
+  - mobility reduction scenarios
