@@ -235,10 +235,6 @@ KMOU-A-mobility-informed-SIR-model/
 │   ├── tables/
 │   │   └── scenario_summary_reference.csv
 │   └── validation/
-├── paper/
-│   ├── README.md
-│   ├── Manuscript.pdf
-│   └── MBE_suppliments.pdf
 ├── scripts/
 │   ├── patch_notebook_paths.py
 │   └── check_repository.py
@@ -474,6 +470,6 @@ The code repository is distributed under the license specified in the `LICENSE` 
 
 ## Contact
 
-**Minsoo Kim**  
+**JAEWAN SHIN**  
 Major of Data Science, Korea Maritime & Ocean University  
-Email: hikims@kmou.ac.kr
+Email: sjw6258@g.kmou.ac.kr
