@@ -1,91 +1,132 @@
 # Data directory
 
-This directory stores raw and processed data used by the mobility-informed SIR model.
+This directory contains the input and generated data files used by the attached notebooks.
 
-## Raw data
+The directory names follow the paths used in the uploaded notebooks.
 
-Raw data files are not necessarily committed to this repository because some sources may require separate download, request, or redistribution permission.
-
-Expected raw-data locations are:
+## Directory structure
 
 ```text
-data/raw/nhis/
-data/raw/seoul/
-data/raw/busan/
-data/raw/daegu/
-data/raw/daejeon/
-data/raw/gwangju/
+data/
+├── metro/
+├── NHIS/
+│   └── 2016~2017/
+├── mobility_factor/
+│   └── 2016~2017/
+├── Rt/
+│   ├── 2016~2017/
+│   ├── 2017~2018/
+│   ├── 2018~2019/
+│   └── 2022~2023/
+└── population_denominators_2016_2017.csv
 ```
 
-## Processed data
+## Subway mobility input
 
-Processed data should be stored under:
+Place the preprocessed city-level subway files in:
 
 ```text
-data/processed/
+data/metro/
 ```
 
-Recommended processed influenza case files are:
+Recommended file names used by the mobility-factor notebook:
 
 ```text
-data/processed/cases/Korea_cases.csv
-data/processed/cases/Seoul_cases.csv
-data/processed/cases/Busan_cases.csv
-data/processed/cases/Daegu_cases.csv
-data/processed/cases/Daejeon_cases.csv
-data/processed/cases/Gwangju_cases.csv
+seoul&g_metro.csv
+busan_metro.csv
+daejeon_metro.csv
+daegu_metro.csv
+gwangju_metro.csv
 ```
 
-The recommended processed mobility file is:
-
-```text
-data/processed/all_city_metro.csv
-```
-
-## Required columns
-
-Processed influenza case files should contain:
-
-```text
-date
-city
-cases
-```
-
-Processed mobility files should contain:
+Required columns:
 
 ```text
 date
 city
 people_in
-people_out
 ```
 
-The mobility coefficient used in the manuscript is constructed from `people_in`, which represents subway boarding counts. The `people_out` column may be preserved for completeness but is not used in the main mobility-factor calculation.
+The manuscript uses subway boarding counts to construct the mobility coefficient. Therefore, `people_in` is the column used to calculate the mobility factor.
 
-## Analysis periods
+## NHIS influenza input
 
-The manuscript analyzes the following influenza seasons:
+Place city-level influenza case files in:
 
 ```text
-2016_2017: 2016-09-01 to 2017-08-31
-2017_2018: 2017-09-01 to 2018-08-31
-2018_2019: 2018-09-01 to 2019-08-31
-2022_2023: 2022-09-01 to 2023-08-31
+data/NHIS/2016~2017/
 ```
 
-## Analysis cities
-
-The city-level analyses are conducted independently for:
+Expected file names used by the 2016-2017 \(R(t)\) notebook:
 
 ```text
-Seoul
-Busan
-Daegu
-Daejeon
-Gwangju
+Seoul&Gyeonggi_cases(2016~2017).csv
+Busan_cases(2016~2017).csv
+Daejeon_cases(2016~2017).csv
+Daegu_cases(2016~2017).csv
+Gwangju_cases(2016~2017).csv
 ```
 
-## Reproducibility note
+The manuscript states that influenza-related diagnosis codes J09, J10, and J11 were used to construct the daily incidence data.
 
-For complete reproduction of the manuscript and supplementary material, processed inputs or generated outputs should be available for all analysis cities and all analysis seasons listed above.
+## Mobility-factor outputs
+
+The mobility-factor notebook writes:
+
+```text
+data/mobility_factor/2016~2017/Seoul_gamma.csv
+data/mobility_factor/2016~2017/Busan_gamma.csv
+data/mobility_factor/2016~2017/Daegu_gamma.csv
+data/mobility_factor/2016~2017/Daejeon_gamma.csv
+data/mobility_factor/2016~2017/Gwangju_gamma.csv
+```
+
+Important: in these files, `gamma` means the mobility coefficient \(\xi(t)\) used in the manuscript. It is not the SIR recovery-rate parameter.
+
+Expected mobility-factor columns include:
+
+```text
+city
+date
+people_in
+pop
+m
+m_7
+L
+c
+b
+gamma
+gamma_1
+gamma_2
+gamma_3
+gamma_4
+gamma_5
+```
+
+## Rt outputs
+
+The \(R(t)\) notebook writes:
+
+```text
+data/Rt/2016~2017/Seoul_Rt(2016~2017).csv
+data/Rt/2016~2017/Busan_Rt(2016~2017).csv
+data/Rt/2016~2017/Daegu_Rt(2016~2017).csv
+data/Rt/2016~2017/Daejeon_Rt(2016~2017).csv
+data/Rt/2016~2017/Gwangju_Rt(2016~2017).csv
+```
+
+The heatmap and scenario-table notebooks expect the same naming pattern for:
+
+```text
+2017~2018
+2018~2019
+2022~2023
+```
+
+## Population denominators used in the attached 2016-2017 mobility notebook
+
+The file below records the population denominators used in the uploaded mobility-factor notebook:
+
+```text
+data/population_denominators_2016_2017.csv
+```
