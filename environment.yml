@@ -7,9 +7,7 @@ dependencies:
   - pandas
   - scipy
   - matplotlib
-  - requests
   - openpyxl
-  - tqdm
   - jupyterlab
   - ipykernel
   - pip
