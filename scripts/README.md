@@ -36,9 +36,7 @@ python scripts/preprocessing/case_preprocessing.py
 ### 5. Run the 2016-2017 model scripts
 
 ```bash
-python scripts/model/2016-2017/regional_rt_theta_001.py
-python scripts/model/2016-2017/regional_rt_theta_05.py
-python scripts/model/2016-2017/regional_rt_theta_1.py
+python scripts/model/2016-2017/regional_rt.py
 ```
 
 ## Notation rule
