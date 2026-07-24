@@ -228,7 +228,6 @@ KMOU-A-mobility-informed-SIR-model/
 └── requirements.txt
 ```
 
-> Note: If the repository currently contains `.CITATION.cff`, rename it to `CITATION.cff` so that GitHub can recognize the citation metadata more clearly.
 
 ---
 
