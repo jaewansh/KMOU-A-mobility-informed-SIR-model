@@ -1,20 +1,20 @@
 # Notebooks
 
-This directory contains the five notebooks uploaded with the manuscript materials.
+This directory contains the five notebooks used to reproduce the manuscript workflow.
 
-## Required notebook file names
+## Required notebook files
 
-Rename the uploaded notebooks as follows before uploading them to GitHub.
-
-| Uploaded file | GitHub file name |
-|---|---|
-| `mobility factor(2016~2017).ipynb` | `01_mobility_factor_2016_2017.ipynb` |
-| `SIR_negative binomial.ipynb` | `02_sir_negative_binomial_particle_smoothing.ipynb` |
-| `Rt(2016~2017).ipynb` | `03_rt_estimation_2016_2017.ipynb` |
-| `HeatMap.ipynb` | `04_rt_heatmap_scenarios.ipynb` |
-| `table.ipynb` | `05_scenario_summary_tables.ipynb` |
+| Order | File | Purpose |
+|---|---|---|
+| 1 | `01_mobility_factor_2016_2017.ipynb` | Constructs the subway-ridership-based mobility coefficient for the 2016-2017 season. |
+| 2 | `02_sir_negative_binomial_particle_smoothing.ipynb` | Runs the synthetic SIR validation under a negative binomial observation model and compares particle filtering with particle smoothing. |
+| 3 | `03_rt_estimation_2016_2017.ipynb` | Estimates mobility-informed SIR trajectories, \(\beta(t)\), and \(R(t)\) for the 2016-2017 season. |
+| 4 | `04_rt_heatmap_scenarios.ipynb` | Generates heatmaps of \(R(t)\) under observed mobility and 10-50% mobility-reduction scenarios. |
+| 5 | `05_scenario_summary_tables.ipynb` | Computes scenario summary metrics for mean \(R(t)\), days with \(R(t)>1\), and excess transmission area. |
 
 ## Execution order
+
+Run the notebooks in the following order:
 
 ```text
 01_mobility_factor_2016_2017.ipynb
@@ -24,68 +24,101 @@ Rename the uploaded notebooks as follows before uploading them to GitHub.
 05_scenario_summary_tables.ipynb
 ```
 
-## Notebook roles
+## Important notation
 
-### 01_mobility_factor_2016_2017.ipynb
+The manuscript denotes the mobility coefficient as \(\xi(t)\). The attached notebooks preserve the original code column name `gamma` for this same mobility coefficient.
 
-Constructs the mobility coefficient from subway boarding counts.
+| Notebook/code column | Manuscript notation | Meaning |
+|---|---|---|
+| `gamma` | \(\xi(t)\) | Observed subway-ridership-based mobility coefficient |
+| `gamma_1` | \(0.9\xi(t)\) | 10% mobility-reduction scenario |
+| `gamma_2` | \(0.8\xi(t)\) | 20% mobility-reduction scenario |
+| `gamma_3` | \(0.7\xi(t)\) | 30% mobility-reduction scenario |
+| `gamma_4` | \(0.6\xi(t)\) | 40% mobility-reduction scenario |
+| `gamma_5` | \(0.5\xi(t)\) | 50% mobility-reduction scenario |
 
-Main calculations in the uploaded code:
-
-```text
-m(t) = X(t) / Pop
-m_7(t) = centered 7-day moving average of m(t)
-L = city-level mean of m_7(t)
-c(t) = m(t) / L
-b(t) = centered 7-day moving average of c(t)
-gamma = b(t)
-```
-
-In manuscript notation, the notebook column `gamma` corresponds to \(\xi(t)\).
-
-Scenario columns:
-
-```text
-gamma_1 = 0.9 * b(t)
-gamma_2 = 0.8 * b(t)
-gamma_3 = 0.7 * b(t)
-gamma_4 = 0.6 * b(t)
-gamma_5 = 0.5 * b(t)
-```
-
-### 02_sir_negative_binomial_particle_smoothing.ipynb
-
-Runs a synthetic SIR experiment using a negative binomial observation model and compares particle filtering with particle smoothing.
-
-### 03_rt_estimation_2016_2017.ipynb
-
-Runs the mobility-informed SIR model for Seoul, Busan, Daegu, Daejeon, and Gwangju for the 2016-2017 season.
-
-The notebook uses:
+The SIR recovery rate is represented in the Rt estimation notebook as:
 
 ```python
 sigma = 1.0 / 4.1
 ```
 
-as the SIR recovery rate.
+No `theta` parameter is used in the attached manuscript or notebooks.
 
-### 04_rt_heatmap_scenarios.ipynb
+## Input data expected by the notebooks
 
-Generates heatmaps of \(R(t)\) for the observed-mobility baseline and 10%, 20%, 30%, 40%, and 50% mobility-reduction scenarios.
+### Subway mobility input
 
-### 05_scenario_summary_tables.ipynb
-
-Computes scenario summary metrics:
+Place city-level subway files in:
 
 ```text
-Mean Rt
-Delta Mean Rt
-Mean reduction percentage
-Days Rt > 1
-Days reduction percentage
-Excess area
+data/metro/
 ```
 
-## Important note
+Expected file names:
 
-No `theta` parameter is used in these notebooks.
+```text
+seoul&g_metro.csv
+busan_metro.csv
+daejeon_metro.csv
+daegu_metro.csv
+gwangju_metro.csv
+```
+
+Required columns:
+
+```text
+date
+city
+people_in
+```
+
+### NHIS influenza input
+
+Place 2016-2017 city-level influenza case files in:
+
+```text
+data/NHIS/2016~2017/
+```
+
+Expected file names:
+
+```text
+Korea_cases(2016~2017).csv
+Seoul&Gyeonggi_cases(2016~2017).csv
+Busan_cases(2016~2017).csv
+Daejeon_cases(2016~2017).csv
+Daegu_cases(2016~2017).csv
+Gwangju_cases(2016~2017).csv
+```
+
+## Outputs
+
+The mobility-factor notebook writes:
+
+```text
+data/mobility_factor/2016~2017/Seoul_gamma.csv
+data/mobility_factor/2016~2017/Busan_gamma.csv
+data/mobility_factor/2016~2017/Daegu_gamma.csv
+data/mobility_factor/2016~2017/Daejeon_gamma.csv
+data/mobility_factor/2016~2017/Gwangju_gamma.csv
+```
+
+The Rt estimation notebook writes:
+
+```text
+data/Rt/2016~2017/Seoul_Rt(2016~2017).csv
+data/Rt/2016~2017/Busan_Rt(2016~2017).csv
+data/Rt/2016~2017/Daegu_Rt(2016~2017).csv
+data/Rt/2016~2017/Daejeon_Rt(2016~2017).csv
+data/Rt/2016~2017/Gwangju_Rt(2016~2017).csv
+```
+
+The heatmap and scenario-table notebooks expect Rt files for:
+
+```text
+2016~2017
+2017~2018
+2018~2019
+2022~2023
+```
